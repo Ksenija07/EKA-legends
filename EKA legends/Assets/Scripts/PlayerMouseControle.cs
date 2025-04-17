@@ -20,7 +20,7 @@ public class PlayerMouseControle : MonoBehaviour
     void Update()
     {
         float distToTarget = Vector3.Distance(transform.position, targetPosition);
-        if (distToTarget > 1f)
+        if (distToTarget > 1f && PLayerHealth.isAlive)
         {
             Vector3 targetDirection = Vector3.Normalize(targetPosition - transform.position);
             characterController.Move(targetDirection * moveSpeed * Time.deltaTime);
@@ -38,9 +38,13 @@ public class PlayerMouseControle : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if(Physics.Raycast(ray, out hit, 500,layerMask))
             {
-                Debug.Log("hit: " + hit.collider.name);
+               // Debug.Log("hit: " + hit.collider.name);
                 targetPosition = hit.point;
             }
+        }
+        if(Input.GetMouseButtonDown(1))
+        {
+            animator.SetTrigger("chop");
         }
     }
 }
