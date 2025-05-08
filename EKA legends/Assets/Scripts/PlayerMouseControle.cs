@@ -7,9 +7,11 @@ public class PlayerMouseControle : MonoBehaviour
     
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float moveSpeed = 10;
+    
     private CharacterController characterController;
     private Vector3 targetPosition;
     private Animator animator;
+    
     void Start()
     {
         characterController = GetComponent<CharacterController>();

@@ -6,12 +6,26 @@ public class PLayerHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private float timeBetweenHit = 1f;
+    [SerializeField] private Collider[] weapons;
     private int _currentHealth;
+    private int _currentMaxHealth;
+
     private float lastHitTime = 0;
     private Animator animator;
 
     public static bool isAlive = true;
 
+    public void EnableWeapon( )
+    {
+        foreach (Collider weapon in weapons)
+            weapon.enabled = true;
+    }
+
+    public void DisableWeapon()
+    {
+        foreach (Collider weapon in weapons)
+            weapon.enabled = false;
+    }
     public int CurrentHealth
     {
         get { return _currentHealth; }
@@ -27,8 +41,15 @@ public class PLayerHealth : MonoBehaviour
     private void Awake()
     {
         _currentHealth = startingHealth;
+        _currentMaxHealth = startingHealth;
         animator = GetComponent<Animator>();
         isAlive = true;
+        DisableWeapon();
+    }
+
+    public float GetHealthRatio()
+    {
+        return (float)_currentHealth / (float)_currentMaxHealth;
     }
     private void OnTriggerEnter(Collider other)
     {
