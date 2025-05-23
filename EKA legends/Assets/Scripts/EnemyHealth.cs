@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    private UIManager uiManager;
     [SerializeField] private int startingHealth = 30;
     [SerializeField] private Collider weapon;
     private int _currentHealth;
@@ -13,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth = startingHealth;
         animator = GetComponent<Animator>();
         DisableWeapon();
+        uiManager = FindObjectOfType<UIManager>();
     }
 
     public void EnableWeapon()
@@ -44,7 +46,11 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             animator.SetTrigger("death");
- 
+            if (uiManager != null)
+            {
+                uiManager.AddXP(5);
+            }
+
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public PLayerHealth pLayerHealth;
     public Animator animator;
     public CharacterController characterController;
 
@@ -69,9 +70,19 @@ public class PlayerController : MonoBehaviour
 
     public void BeginAttack()
     {
-        foreach (Collider swordCollider in swordColliders)
+        if (pLayerHealth.GetManaRatio() > 0.1f)  
         {
-            swordCollider.enabled = true;
+            pLayerHealth.UseMana(10); 
+
+            foreach (Collider swordCollider in swordColliders)
+            {
+                swordCollider.enabled = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Not enough mana to attack!");
+         
         }
     }
     public void EndAttack()

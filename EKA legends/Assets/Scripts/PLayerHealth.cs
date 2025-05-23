@@ -10,6 +10,9 @@ public class PLayerHealth : MonoBehaviour
     private int _currentHealth;
     private int _currentMaxHealth;
 
+    [SerializeField] private int startingMana = 100;
+    private int _currentMana;
+
     private float lastHitTime = 0;
     private Animator animator;
 
@@ -42,6 +45,7 @@ public class PLayerHealth : MonoBehaviour
     {
         _currentHealth = startingHealth;
         _currentMaxHealth = startingHealth;
+        _currentMana = startingMana;
         animator = GetComponent<Animator>();
         isAlive = true;
         DisableWeapon();
@@ -51,6 +55,17 @@ public class PLayerHealth : MonoBehaviour
     {
         return (float)_currentHealth / (float)_currentMaxHealth;
     }
+
+    public void UseMana(int amount)
+    {
+        _currentMana = Mathf.Max(0, _currentMana - amount);
+    }
+
+    public float GetManaRatio()
+    {
+        return (float)_currentMana / startingMana;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("EnemyWeapon") && isAlive && Time.time - lastHitTime > timeBetweenHit)
