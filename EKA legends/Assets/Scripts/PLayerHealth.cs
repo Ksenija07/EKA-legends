@@ -45,7 +45,7 @@ public class PLayerHealth : MonoBehaviour
     {
         _currentHealth = startingHealth;
         _currentMaxHealth = startingHealth;
-        _currentMana = startingMana;
+        _currentMana = 0;
         animator = GetComponent<Animator>();
         isAlive = true;
         DisableWeapon();
@@ -56,9 +56,10 @@ public class PLayerHealth : MonoBehaviour
         return (float)_currentHealth / (float)_currentMaxHealth;
     }
 
-    public void UseMana(int amount)
+    public void GainMana(int amount)
     {
-        _currentMana = Mathf.Max(0, _currentMana - amount);
+        _currentMana = Mathf.Min(_currentMana + amount, startingMana); 
+        Debug.Log("Mana gained. Current mana: " + _currentMana);
     }
 
     public float GetManaRatio()

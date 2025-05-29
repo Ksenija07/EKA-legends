@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     private UIManager uiManager;
+    private PLayerHealth playerHealth;
     [SerializeField] private int startingHealth = 30;
     [SerializeField] private Collider weapon;
     private int _currentHealth;
@@ -15,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         DisableWeapon();
         uiManager = FindObjectOfType<UIManager>();
+        playerHealth = FindObjectOfType<PLayerHealth>();
     }
 
     public void EnableWeapon()
@@ -51,6 +53,10 @@ public class EnemyHealth : MonoBehaviour
                 uiManager.AddXP(5);
             }
 
+        }
+        if (playerHealth != null)
+        {
+            playerHealth.GainMana(5);
         }
     }
 }

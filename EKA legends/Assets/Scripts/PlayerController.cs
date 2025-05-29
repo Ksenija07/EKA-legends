@@ -70,19 +70,9 @@ public class PlayerController : MonoBehaviour
 
     public void BeginAttack()
     {
-        if (pLayerHealth.GetManaRatio() > 0.1f)  
+        foreach (Collider swordCollider in swordColliders)
         {
-            pLayerHealth.UseMana(10); 
-
-            foreach (Collider swordCollider in swordColliders)
-            {
-                swordCollider.enabled = true;
-            }
-        }
-        else
-        {
-            Debug.Log("Not enough mana to attack!");
-         
+            swordCollider.enabled = true;
         }
     }
     public void EndAttack()
